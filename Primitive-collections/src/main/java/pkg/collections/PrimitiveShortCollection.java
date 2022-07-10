@@ -61,6 +61,77 @@ public class PrimitiveShortCollection {
         lastChunk = array[0];
     }
 
+    public double sum() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double sum = 0;
+        int i = 0;
+        for (short[] chunk : array) {
+            for (short v : chunk) {
+                sum = sum + v;
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return sum;
+    }
+
+    public double average() {
+        return sum() / size;
+    }
+
+    public short max() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        short max = array[0][0];
+        int i = 0;
+        for (short[] chunk : array) {
+            for (short v : chunk) {
+                if (v > max) {
+                    max = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return max;
+    }
+
+    public short min() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        short min = array[0][0];
+        int i = 0;
+        for (short[] chunk : array) {
+            for (short v : chunk) {
+                if (v < min) {
+                    min = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return min;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(array);

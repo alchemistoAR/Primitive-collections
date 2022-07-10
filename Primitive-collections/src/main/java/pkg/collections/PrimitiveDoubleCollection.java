@@ -61,6 +61,81 @@ public class PrimitiveDoubleCollection {
         lastChunk = array[0];
     }
 
+    // Stop replace
+    public double sum() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double sum = 0;
+        int i = 0;
+        // Start replace
+        for (double[] chunk : array) {
+            for (double v : chunk) {
+                sum = sum + v;
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return sum;
+    }
+
+    // Stop replace
+    public double average() {
+        return sum() / size;
+    }
+
+    // Start replace
+    public double max() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double max = array[0][0];
+        int i = 0;
+        for (double[] chunk : array) {
+            for (double v : chunk) {
+                if (v > max) {
+                    max = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return max;
+    }
+
+    public double min() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double min = array[0][0];
+        int i = 0;
+        for (double[] chunk : array) {
+            for (double v : chunk) {
+                if (v < min) {
+                    min = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return min;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(array);

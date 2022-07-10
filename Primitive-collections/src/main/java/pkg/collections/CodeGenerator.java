@@ -51,9 +51,21 @@ class CodeGenerator {
                     file.delete();
                 }
 
+                boolean replace = true;
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                     for (final String line : lines) {
-                        final String newLine = line.replaceAll("Double", className).replaceAll("double", typeName);
+                        if (line.contains("// Start replace")) {
+                            replace = true;
+                            continue;
+                        }
+                        if (line.contains("// Stop replace")) {
+                            replace = false;
+                            continue;
+                        }
+                        String newLine = line;
+                        if (replace) {
+                            newLine = line.replaceAll("Double", className).replaceAll("double", typeName);
+                        }
                         writer.write(newLine);
                         writer.newLine();
                     }

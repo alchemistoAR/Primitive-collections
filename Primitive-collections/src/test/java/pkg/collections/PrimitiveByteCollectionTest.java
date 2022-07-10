@@ -3,6 +3,8 @@ package pkg.collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 class PrimitiveByteCollectionTest {
 
     private final int iterations = 10_000;
@@ -72,6 +74,60 @@ class PrimitiveByteCollectionTest {
         collection.clean();
         Assertions.assertEquals(0, collection.getSize());
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> collection.get(0));
+    }
+
+    @Test
+    void sum() {
+        int sum = 0;
+        final PrimitiveByteCollection collection = new PrimitiveByteCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.sum());
+        for (int i = 0; i < 10; i++) {
+            collection.add((byte) i);
+            sum = sum + i;
+        }
+        Assertions.assertEquals(sum, collection.sum());
+    }
+
+    @Test
+    void average() {
+        final PrimitiveByteCollection collection = new PrimitiveByteCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.average());
+        for (int i = 0; i < 10; i++) {
+            collection.add((byte) i);
+        }
+        Assertions.assertEquals(4.5, collection.average());
+    }
+
+    @Test
+    void max() {
+        final Random random = new Random();
+        final PrimitiveByteCollection collection = new PrimitiveByteCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.max());
+        for (int i = 0; i < 10; i++) {
+            collection.add((byte) random.nextInt());
+        }
+        final byte max = collection.max();
+        for (int i = 0; i < 10; i++) {
+            if (collection.get(i) > max) {
+                Assertions.fail("Value = " + collection.get(i));
+            }
+        }
+    }
+
+    @Test
+    void min() {
+        final Random random = new Random();
+        final PrimitiveByteCollection collection = new PrimitiveByteCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.min());
+        for (int i = 0; i < 10; i++) {
+            collection.add((byte) random.nextInt());
+        }
+        final byte min = collection.min();
+        for (int i = 0; i < 10; i++) {
+            if (collection.get(i) < min) {
+                Assertions.fail("Value = " + collection.get(i));
+            }
+        }
     }
 
     @Test

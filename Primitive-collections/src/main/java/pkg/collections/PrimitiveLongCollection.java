@@ -61,6 +61,77 @@ public class PrimitiveLongCollection {
         lastChunk = array[0];
     }
 
+    public double sum() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double sum = 0;
+        int i = 0;
+        for (long[] chunk : array) {
+            for (long v : chunk) {
+                sum = sum + v;
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return sum;
+    }
+
+    public double average() {
+        return sum() / size;
+    }
+
+    public long max() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        long max = array[0][0];
+        int i = 0;
+        for (long[] chunk : array) {
+            for (long v : chunk) {
+                if (v > max) {
+                    max = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return max;
+    }
+
+    public long min() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        long min = array[0][0];
+        int i = 0;
+        for (long[] chunk : array) {
+            for (long v : chunk) {
+                if (v < min) {
+                    min = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return min;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(array);

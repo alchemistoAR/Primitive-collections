@@ -61,6 +61,77 @@ public class PrimitiveIntCollection {
         lastChunk = array[0];
     }
 
+    public double sum() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double sum = 0;
+        int i = 0;
+        for (int[] chunk : array) {
+            for (int v : chunk) {
+                sum = sum + v;
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return sum;
+    }
+
+    public double average() {
+        return sum() / size;
+    }
+
+    public int max() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        int max = array[0][0];
+        int i = 0;
+        for (int[] chunk : array) {
+            for (int v : chunk) {
+                if (v > max) {
+                    max = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return max;
+    }
+
+    public int min() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        int min = array[0][0];
+        int i = 0;
+        for (int[] chunk : array) {
+            for (int v : chunk) {
+                if (v < min) {
+                    min = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return min;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(array);

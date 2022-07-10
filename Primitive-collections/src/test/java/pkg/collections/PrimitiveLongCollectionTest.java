@@ -3,6 +3,8 @@ package pkg.collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 class PrimitiveLongCollectionTest {
 
     private final int iterations = 10_000;
@@ -72,6 +74,60 @@ class PrimitiveLongCollectionTest {
         collection.clean();
         Assertions.assertEquals(0, collection.getSize());
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> collection.get(0));
+    }
+
+    @Test
+    void sum() {
+        int sum = 0;
+        final PrimitiveLongCollection collection = new PrimitiveLongCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.sum());
+        for (int i = 0; i < 10; i++) {
+            collection.add((long) i);
+            sum = sum + i;
+        }
+        Assertions.assertEquals(sum, collection.sum());
+    }
+
+    @Test
+    void average() {
+        final PrimitiveLongCollection collection = new PrimitiveLongCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.average());
+        for (int i = 0; i < 10; i++) {
+            collection.add((long) i);
+        }
+        Assertions.assertEquals(4.5, collection.average());
+    }
+
+    @Test
+    void max() {
+        final Random random = new Random();
+        final PrimitiveLongCollection collection = new PrimitiveLongCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.max());
+        for (int i = 0; i < 10; i++) {
+            collection.add((long) random.nextInt());
+        }
+        final long max = collection.max();
+        for (int i = 0; i < 10; i++) {
+            if (collection.get(i) > max) {
+                Assertions.fail("Value = " + collection.get(i));
+            }
+        }
+    }
+
+    @Test
+    void min() {
+        final Random random = new Random();
+        final PrimitiveLongCollection collection = new PrimitiveLongCollection();
+        Assertions.assertThrows(IllegalStateException.class, () -> collection.min());
+        for (int i = 0; i < 10; i++) {
+            collection.add((long) random.nextInt());
+        }
+        final long min = collection.min();
+        for (int i = 0; i < 10; i++) {
+            if (collection.get(i) < min) {
+                Assertions.fail("Value = " + collection.get(i));
+            }
+        }
     }
 
     @Test

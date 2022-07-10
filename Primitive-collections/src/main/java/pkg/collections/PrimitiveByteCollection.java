@@ -61,6 +61,77 @@ public class PrimitiveByteCollection {
         lastChunk = array[0];
     }
 
+    public double sum() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        double sum = 0;
+        int i = 0;
+        for (byte[] chunk : array) {
+            for (byte v : chunk) {
+                sum = sum + v;
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return sum;
+    }
+
+    public double average() {
+        return sum() / size;
+    }
+
+    public byte max() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        byte max = array[0][0];
+        int i = 0;
+        for (byte[] chunk : array) {
+            for (byte v : chunk) {
+                if (v > max) {
+                    max = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return max;
+    }
+
+    public byte min() {
+        if (size == 0) {
+            throw new IllegalStateException("Can't calculate, collection is empty");
+        }
+        byte min = array[0][0];
+        int i = 0;
+        for (byte[] chunk : array) {
+            for (byte v : chunk) {
+                if (v < min) {
+                    min = v;
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            if (i == size) {
+                break;
+            }
+        }
+        return min;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(array);
